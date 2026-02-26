@@ -1,20 +1,18 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Builder from "./pages/Builder";
-import Dashboard from "./pages/Dashboard";
-import SignUp from "./pages/SignUp";
-import Navbar from "./components/Navbar";
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import LandingPage from './pages/LandingPage'
+import LoginPage from './pages/LoginPage'
+import SignupPage from './pages/SignupPage'
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Builder />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/signup" element={<SignUp />} />
-      </Routes>
+      <div className="bg-background-light text-text-main min-h-screen">
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+        </Routes>
+      </div>
     </BrowserRouter>
-  );
+  )
 }
-
-export default App;
