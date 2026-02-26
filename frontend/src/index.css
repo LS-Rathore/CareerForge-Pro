@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ─── */
+@theme {
+  --color-primary: #7C6FE0;
+  --color-primary-orange: #ec5b13;
+  --color-mint: #57CDA4;
+  --color-coral: #FF687D;
+  --color-peach: #FFE0B9;
+  --color-surface: #F7F6FB;
+  --color-background-light: #FAFAF9;
+  --color-background-dark: #1A1A2E;
+  --color-text-main: #1A1A2E;
+  --color-text-secondary: #5C5C7B;
+  --color-text-tertiary: #9B9BB5;
+  --color-border-ui: #E8E5F0;
+  --color-violet-accent: #8b5cf6;
+  --color-mint-accent: #10b981;
+  --color-peach-accent: #fb923c;
+  --color-coral-accent: #f43f5e;
+  --color-surface-accent: #F7F6FB;
+  --color-builder-sidebar: #F7F6FB;
+
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Public Sans", "Inter", sans-serif;
+
+  --radius-sm: 6px;
+  --radius-DEFAULT: 10px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+}
+
+/* ─── Resume Builder Utilities ─── */
+.dot-grid {
+  background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.magic-glow {
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+}
+
+.builder-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.builder-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.builder-scrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}
+
+/* ─── Print Styles for PDF Export ─── */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .resume-preview-area,
+  .resume-preview-area * {
+    visibility: visible;
+  }
+  .resume-preview-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    transform: none !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ─── Base ─── */
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+}
+
+/* ─── Utilities ─── */
+.hero-gradient-text {
+  background: linear-gradient(90deg, #7C6FE0 0%, #57CDA4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s ease-out both;
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animation-delay-600 {
+  animation-delay: 600ms;
+}
