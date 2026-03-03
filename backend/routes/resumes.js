@@ -1,10 +1,10 @@
 import { Router } from 'express'
 import { getResumes, getResume, createResume, updateResume, deleteResume, duplicateResume } from '../controllers/resumeController.js'
-import { auth } from '../middleware/auth.js'
+import { requireAuth } from '../middleware/auth.js'
 
 const router = Router()
 
-router.use(auth)
+router.use(requireAuth)
 
 router.get('/', getResumes)
 router.get('/:id', getResume)

@@ -1,10 +1,16 @@
 import Stripe from 'stripe'
 import User from '../models/User.js'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+const getStripe = () => {
+    if (!process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY === 'sk_test_your_stripe_secret_key') {
+        throw new Error('Stripe secret key is not configured. Update STRIPE_SECRET_KEY in .env')
+    }
+    return new Stripe(process.env.STRIPE_SECRET_KEY)
+}
 
 export const createCheckoutSession = async (req, res) => {
     try {
+        const stripe = getStripe()
         const { priceId } = req.body
         const user = await User.findById(req.userId)
 

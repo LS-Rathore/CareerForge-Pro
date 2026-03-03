@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  FREE
+  PRO
+  ADMIN
+}
+
+model User {
+  id                   String        @id @default(auto()) @map("_id") @db.ObjectId
+  email                String        @unique
+  passwordHash         String
+  role                 Role          @default(FREE)
+  stripeCustomerId     String?
+  stripeSubscriptionId String?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  resumes              Resume[]
+  coverLetters         CoverLetter[]
+
+  @@map("users")
+}
+
+model Resume {
+  id         String          @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String          @db.ObjectId
+  title      String
+  templateId String          @default("modern-1")
+  data       Json
+  atsScore   Float?
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  user       User            @relation(fields: [userId], references: [id])
+  versions   ResumeVersion[]
+  downloads  Download[]
+
+  @@map("resumes")
+}
+
+model ResumeVersion {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  resumeId  String   @db.ObjectId
+  data      Json
+  label     String
+  createdAt DateTime @default(now())
+  resume    Resume   @relation(fields: [resumeId], references: [id])
+
+  @@map("resume_versions")
+}
+
+model CoverLetter {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  resumeId  String   @db.ObjectId
+  content   String
+  jdText    String
+  tone      String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("cover_letters")
+}
+
+model Download {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  resumeId  String   @db.ObjectId
+  format    String   @default("pdf")
+  createdAt DateTime @default(now())
+  resume    Resume   @relation(fields: [resumeId], references: [id])
+
+  @@map("downloads")
+}

@@ -1,10 +1,10 @@
 import { Router } from 'express'
 import { getCoverLetters, getCoverLetter, createCoverLetter, updateCoverLetter, deleteCoverLetter } from '../controllers/coverLetterController.js'
-import { auth } from '../middleware/auth.js'
+import { requireAuth } from '../middleware/auth.js'
 
 const router = Router()
 
-router.use(auth)
+router.use(requireAuth)
 
 router.get('/', getCoverLetters)
 router.get('/:id', getCoverLetter)
